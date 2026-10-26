@@ -22,9 +22,11 @@ export default function Home() {
       {/* Scroll Progress Indicator */}
       <ScrollProgress />
 
-      {/* Ambient Glow Backgrounds */}
-      <div className="ambient-glow-1" aria-hidden="true" />
-      <div className="ambient-glow-2" aria-hidden="true" />
+      {/* Ambient Glow Backgrounds (contained to prevent mobile horizontal blowout) */}
+      <div className="ambient-glows-container" aria-hidden="true">
+        <div className="ambient-glow-1" />
+        <div className="ambient-glow-2" />
+      </div>
 
       {/* Navigation Bar */}
       <Navbar />

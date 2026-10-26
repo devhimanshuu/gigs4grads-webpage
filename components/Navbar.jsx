@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useToast } from "@/context/ToastContext";
 
@@ -24,6 +23,27 @@ export default function Navbar() {
     };
   }, []);
 
+  // Close mobile menu on Escape key and prevent background scrolling
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   const handleNavClick = (e, targetId) => {
     setMobileMenuOpen(false);
     const target = document.querySelector(targetId);
@@ -37,7 +57,14 @@ export default function Navbar() {
     <>
       <nav className={`nav ${scrolled ? "scrolled" : ""}`} id="main-nav">
         <div className="container">
-          <Link href="/" className="nav-brand" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+          <Link
+            href="/"
+            className="nav-brand"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
             <img
               src="/assets/logo_icon.png"
               alt="Gigs4Grads Logo"
@@ -48,7 +75,6 @@ export default function Navbar() {
             <div className="nav-brand-text">
               Gigs<span>4</span>Grads
             </div>
-            <span className="nav-badge">v2.0 Pro</span>
           </Link>
 
           <ul className="nav-links">
@@ -82,83 +108,102 @@ export default function Navbar() {
           <div className="nav-actions">
             <button
               type="button"
-              className="btn btn-ghost"
+              className="btn btn-ghost nav-login-btn"
               onClick={() => showToast("🔑 Log-in modal opened (Demo mode)")}
             >
               Log In
             </button>
             <button
               type="button"
-              className="btn btn-primary"
+              className="btn btn-primary nav-cta-btn"
               onClick={() => showToast("🚀 Welcome to Gigs4Grads onboarding!")}
             >
               Get Started
             </button>
             <button
               type="button"
-              className="mobile-menu-toggle"
+              className={`mobile-menu-toggle ${mobileMenuOpen ? "open" : ""}`}
               aria-label="Toggle Navigation Menu"
+              aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              style={{
-                display: "none",
-                background: "none",
-                border: "none",
-                padding: "8px",
-                cursor: "pointer",
-              }}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                {mobileMenuOpen ? (
-                  <path d="M18 6L6 18M6 6l12 12" />
-                ) : (
-                  <path d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              <span className="hamburger-line line-1" />
+              <span className="hamburger-line line-2" />
+              <span className="hamburger-line line-3" />
             </button>
           </div>
         </div>
 
         {/* Mobile Dropdown Drawer */}
-        {mobileMenuOpen && (
-          <div
-            className="mobile-nav-drawer"
-            style={{
-              padding: "16px 24px 24px",
-              background: "rgba(255, 255, 255, 0.98)",
-              borderBottom: "1px solid var(--border)",
-              boxShadow: "var(--shadow-lg)",
-            }}
-          >
-            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "16px" }}>
-              <li>
-                <a href="#features" className="nav-link" onClick={(e) => handleNavClick(e, "#features")}>
-                  Features
-                </a>
-              </li>
-              <li>
-                <a href="#how-it-works" className="nav-link" onClick={(e) => handleNavClick(e, "#how-it-works")}>
-                  How It Works
-                </a>
-              </li>
-              <li>
-                <a href="#for-talent" className="nav-link" onClick={(e) => handleNavClick(e, "#for-talent")}>
-                  For Talent
-                </a>
-              </li>
-              <li>
-                <a href="#for-companies" className="nav-link" onClick={(e) => handleNavClick(e, "#for-companies")}>
-                  For Companies
-                </a>
-              </li>
-              <li>
-                <a href="#faq" className="nav-link" onClick={(e) => handleNavClick(e, "#faq")}>
-                  FAQ
-                </a>
-              </li>
-            </ul>
+        <div className={`mobile-nav-drawer ${mobileMenuOpen ? "open" : ""}`}>
+          <ul className="mobile-nav-list">
+            <li>
+              <a href="#features" className="mobile-nav-link" onClick={(e) => handleNavClick(e, "#features")}>
+                <span>Features</span>
+                <span className="mobile-nav-arrow">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="#how-it-works" className="mobile-nav-link" onClick={(e) => handleNavClick(e, "#how-it-works")}>
+                <span>How It Works</span>
+                <span className="mobile-nav-arrow">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="#for-talent" className="mobile-nav-link" onClick={(e) => handleNavClick(e, "#for-talent")}>
+                <span>For Talent</span>
+                <span className="mobile-nav-arrow">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="#for-companies" className="mobile-nav-link" onClick={(e) => handleNavClick(e, "#for-companies")}>
+                <span>For Companies</span>
+                <span className="mobile-nav-arrow">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="#faq" className="mobile-nav-link" onClick={(e) => handleNavClick(e, "#faq")}>
+                <span>FAQ</span>
+                <span className="mobile-nav-arrow">→</span>
+              </a>
+            </li>
+          </ul>
+
+          <div className="mobile-nav-actions">
+            <button
+              type="button"
+              className="btn btn-outline"
+              style={{ width: "100%", justifyContent: "center" }}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                showToast("🔑 Log-in modal opened (Demo mode)");
+              }}
+            >
+              Log In
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              style={{ width: "100%", justifyContent: "center" }}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                showToast("🚀 Welcome to Gigs4Grads onboarding!");
+              }}
+            >
+              Get Started Free
+            </button>
           </div>
-        )}
+        </div>
       </nav>
+
+      {/* Backdrop overlay for mobile menu */}
+      {mobileMenuOpen && (
+        <div
+          className="mobile-nav-backdrop"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
     </>
   );
 }

@@ -19,16 +19,25 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <div className="footer-brand">
-              <img
-                src="/assets/logo_icon.png"
-                alt="Gigs4Grads"
-                style={{ width: "32px", height: "32px" }}
-              />
+            <Link
+              href="/"
+              className="footer-brand"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              title="Return to top"
+            >
+              <div className="footer-logo-box">
+                <img
+                  src="/assets/logo_icon.png"
+                  alt="Gigs4Grads Logo"
+                  className="footer-brand-logo"
+                  width="40"
+                  height="40"
+                />
+              </div>
               <div className="footer-brand-title">
                 Gigs<span>4</span>Grads
               </div>
-            </div>
+            </Link>
             <p className="footer-about-text">
               Connecting verified U.S. companies with vetted students and graduates for high-trust, in-person white-collar
               assignments.

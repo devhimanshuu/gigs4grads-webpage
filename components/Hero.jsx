@@ -58,7 +58,7 @@ export default function Hero() {
         <div className="hero-content reveal-on-scroll">
           <div className="hero-eyebrow">
             <div className="live-pulse-dot" />
-            U.S. In-Person Professional Experience Marketplace
+            <span>U.S. In-Person Professional Experience Marketplace</span>
           </div>
 
           <h1 className="hero-title">
@@ -252,7 +252,7 @@ export default function Hero() {
                     {(filterCat === "all" || filterCat === "event") && (
                       <div className="mock-gig-card" id="card-event">
                         <div className="mock-gig-badges">
-                          <div style={{ display: "flex", gap: "6px" }}>
+                          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", minWidth: 0, flex: 1 }}>
                             <span className="mock-pill mock-pill-green">
                               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
@@ -375,73 +375,128 @@ export default function Hero() {
                       <div
                         style={{
                           background: "var(--mint)",
-                          padding: "10px",
-                          borderRadius: "10px",
+                          padding: "10px 12px",
+                          borderRadius: "12px",
                           border: "1px solid var(--mint-border)",
                         }}
                       >
                         <div style={{ fontSize: "18px", fontWeight: "800", color: "var(--navy)" }}>4 Active</div>
-                        <div style={{ fontSize: "10.5px", color: "var(--green-dark)" }}>Gigs Posted</div>
+                        <div style={{ fontSize: "10.5px", color: "var(--green-dark)", fontWeight: "600" }}>Gigs Posted</div>
                       </div>
                       <div
                         style={{
                           background: "var(--blue-soft)",
-                          padding: "10px",
-                          borderRadius: "10px",
+                          padding: "10px 12px",
+                          borderRadius: "12px",
                           border: "1px solid var(--blue-border)",
                         }}
                       >
                         <div style={{ fontSize: "18px", fontWeight: "800", color: "var(--navy)" }}>18 Bids</div>
-                        <div style={{ fontSize: "10.5px", color: "var(--navy)" }}>Vetted Talent</div>
+                        <div style={{ fontSize: "10.5px", color: "var(--navy)", fontWeight: "600" }}>Vetted Talent</div>
                       </div>
                     </div>
 
-                    <div
-                      style={{
-                        background: "var(--white)",
-                        border: "1px solid var(--border)",
-                        borderRadius: "12px",
-                        padding: "12px",
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontSize: "11px",
-                          fontWeight: "700",
-                          textTransform: "uppercase",
-                          color: "var(--slate-light)",
-                          marginBottom: "8px",
-                        }}
-                      >
-                        Recent Candidate
-                      </div>
-                      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                        <div
-                          style={{
-                            width: "36px",
-                            height: "36px",
-                            borderRadius: "50%",
-                            background: "var(--lavender-soft)",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            color: "var(--lavender)",
-                            fontWeight: "700",
-                          }}
-                        >
-                          JD
+                    {/* Active Campaign Card */}
+                    <div className="mock-gig-card" style={{ marginBottom: "10px" }}>
+                      <div className="mock-gig-badges">
+                        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", minWidth: 0, flex: 1 }}>
+                          <span className="mock-pill mock-pill-green">Escrow Funded</span>
+                          <span className="mock-pill mock-pill-slate">Active Gig</span>
                         </div>
-                        <div style={{ flex: 1 }}>
-                          <div style={{ fontSize: "13px", fontWeight: "700", color: "var(--navy)" }}>
-                            Jordan Davis
+                        <span style={{ fontSize: "11px", fontWeight: "700", color: "var(--green)" }}>Live</span>
+                      </div>
+
+                      <div className="mock-gig-body">
+                        <div className="mock-gig-icon" style={{ background: "var(--blue-soft)", color: "var(--navy)" }}>
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" />
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                          </svg>
+                        </div>
+                        <div className="mock-gig-info">
+                          <div className="mock-gig-title">Tech Innovation Summit Rep</div>
+                          <div className="mock-gig-company">Austin, TX · 3 Staff Assigned</div>
+                        </div>
+                      </div>
+
+                      <div className="mock-gig-pay-bar">
+                        <div>
+                          <div className="mock-pay-type">Escrow Locked</div>
+                          <div className="mock-pay-amount">$1,350 total</div>
+                        </div>
+                        <span className="mock-pill mock-pill-green">100% Guaranteed</span>
+                      </div>
+
+                      <div className="mock-gig-actions">
+                        <button
+                          type="button"
+                          className="mock-action-btn mock-action-save"
+                          onClick={() => showToast("📋 Opening Campaign roster...")}
+                        >
+                          Roster (3)
+                        </button>
+                        <button
+                          type="button"
+                          className="mock-action-btn mock-action-apply"
+                          onClick={() => showToast("⚡ Check-in GPS tracker live")}
+                        >
+                          Live GPS
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Recent Candidate Quick Card */}
+                    <div
+                      className="mock-gig-card"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => showToast("👤 Reviewing Jordan Davis profile & video bio...")}
+                    >
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                          <div
+                            style={{
+                              width: "32px",
+                              height: "32px",
+                              borderRadius: "50%",
+                              background: "var(--lavender-soft)",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              color: "var(--lavender)",
+                              fontWeight: "700",
+                              fontSize: "12px",
+                            }}
+                          >
+                            JD
                           </div>
-                          <div style={{ fontSize: "11px", color: "var(--slate)" }}>UT Austin · 4.9 ★ Rating</div>
+                          <div>
+                            <div style={{ fontSize: "13px", fontWeight: "700", color: "var(--navy)" }}>
+                              Jordan Davis
+                            </div>
+                            <div style={{ fontSize: "11px", color: "var(--slate)" }}>UT Austin · 4.9 ★ Pro</div>
+                          </div>
                         </div>
                         <span className="mock-pill mock-pill-green">Selected</span>
                       </div>
                     </div>
                   </div>
                 )}
+              </div>
+            </div>
+
+            {/* Mobile & Tablet Trust Badges Row */}
+            <div className="hero-mobile-badges" aria-label="Key Marketplace Trust Guarantees">
+              <div className="mobile-badge-item">
+                <span className="mobile-badge-dot green" />
+                <span>Verified Buyer KYB</span>
+              </div>
+              <div className="mobile-badge-item">
+                <span className="mobile-badge-dot lavender" />
+                <span>98/100 Pro Score</span>
+              </div>
+              <div className="mobile-badge-item">
+                <span className="mobile-badge-dot amber" />
+                <span>Instant Escrow</span>
               </div>
             </div>
           </div>
