@@ -26,6 +26,7 @@ export function useScrollReveal() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-revealed");
+            entry.target.setAttribute("data-revealed", "true");
           }
         });
       },
@@ -35,7 +36,12 @@ export function useScrollReveal() {
       }
     );
 
-    revealElements.forEach((el) => observer.observe(el));
+    revealElements.forEach((el) => {
+      if (el.getAttribute("data-revealed") === "true") {
+        el.classList.add("is-revealed");
+      }
+      observer.observe(el);
+    });
 
     return () => {
       observer.disconnect();

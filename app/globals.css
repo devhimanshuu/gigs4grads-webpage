@@ -1906,7 +1906,8 @@
       transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .reveal-on-scroll.is-revealed {
+    .reveal-on-scroll.is-revealed,
+    .reveal-on-scroll[data-revealed="true"] {
       opacity: 1;
       transform: translateY(0);
     }
